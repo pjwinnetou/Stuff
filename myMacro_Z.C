@@ -1,7 +1,6 @@
 #include "tdrstyle.C"
 #include "CMS_lumi.C"
 #include "TH1.h"
-#include "commonUtility.h"
 #include "TH1F.h"
  
 TCanvas* example_plot( int iPeriod, int iPos );
@@ -45,7 +44,7 @@ TCanvas* example_plot( int iPeriod, int iPos )
 { 
   //  if( iPos==0 ) relPosX = 0.12;
 
-  int W = 800;
+  int W = 600;
   int H = 600;
 
   int RUNNUM_1 = 285480;
@@ -95,16 +94,19 @@ TCanvas* example_plot( int iPeriod, int iPos )
   TH1* h = new TH1F("h","h",40,80,110);
   h->GetXaxis()->SetNdivisions(6,5,0);
   h->GetXaxis()->SetTitle("m_{#mu^{+}#mu^{-}} (GeV)");  
+  h->GetXaxis()->SetTitleSize(0.053);
+  h->GetXaxis()->SetTitleOffset(1.);
   h->GetYaxis()->SetNdivisions(6,5,0);
-  h->GetYaxis()->SetTitleOffset(1);
+  h->GetYaxis()->SetTitleOffset(1.4);
+  h->GetYaxis()->SetTitleSize(0.053);
   h->GetYaxis()->SetTitle("Events / 0.83 GeV");  
   h->SetMarkerStyle(kRed);
 
   h->SetMaximum( 700 );
   if( iPos==1 ) h->SetMaximum( 300 );
   h->Draw();
-  drawText("Soft Muon",0.16,0.7);    
-  drawText("p_{T}^{#mu} > 10 GeV/c",0.16,0.62);    
+  drawText("Soft Muon",0.17,0.7);    
+  drawText("p_{T}^{#mu} > 10 GeV/c",0.17,0.62);    
 
   int histLineColor = kOrange+7;
   int histFillColor = kOrange-2;

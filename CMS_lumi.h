@@ -44,3 +44,14 @@ bool drawLogo      = false;
 
 void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10, TString label = lumi_pp2015 );
 
+
+void drawText(const char *text, float xp, float yp, int textColor=kBlack, int textSize=18){
+   TLatex *tex = new TLatex(xp,yp,text);
+   tex->SetTextFont(43);
+   //   if(bold)tex->SetTextFont(43);
+   tex->SetTextSize(textSize);
+   tex->SetTextColor(textColor);
+   tex->SetLineWidth(1);
+   tex->SetNDC();
+   tex->Draw();
+}
