@@ -11,9 +11,9 @@ isMC           = False     # if input is MONTECARLO: True or if it's DATA: False
 muonSelection  = "Glb"    # Single muon selection: Glb(isGlobal), GlbTrk(isGlobal&&isTracker), Trk(isTracker) are availale
 
 triggerList    = {
-    '''
     # Double Muon Trigger List
         'DoubleMuonTrigger' : cms.vstring(
+        '''
         "HLT_HIL1DoubleMuOpen_v1",
         "HLT_HIL1DoubleMuOpen_OS_v1",
         "HLT_HIL1DoubleMuOpen_SS_v1",
@@ -24,9 +24,11 @@ triggerList    = {
         "HLT_HIL2DoubleMu10_v1",
         "HLT_HIL3DoubleMu0_v1",
         "HLT_HIL3DoubleMu10_v1",
+        '''
         ),
     # Double Muon Filter List
         'DoubleMuonFilter'  : cms.vstring(
+        '''
         "hltL1fL1sDoubleMuOpenBptxANDL1Filtered0",
         "hltL1fL1sDoubleMuOpenOSBptxANDL1Filtered0",
         "hltL1fL1sDoubleMuOpenSSBptxANDL1Filtered0",
@@ -37,9 +39,11 @@ triggerList    = {
         "hltL2fL1sDoubleMu10BptxANDL1f0L2Filtered10",
         "hltL3fL1sDoubleMu0BptxANDL1f0L2f0L3Filtered0",
         "hltL3fL1sDoubleMu10BptxANDL1f0L2f0L3Filtered10",
+        '''
         ),
     # Double Muon Trigger List
     'SingleMuonTrigger' : cms.vstring(
+        '''
         "HLT_HIL1Mu3_v1",
         "HLT_HIL1Mu5_v1",
         "HLT_HIL1Mu7_v1",
@@ -57,9 +61,11 @@ triggerList    = {
         "HLT_HIL3Mu12_v1",
         "HLT_HIL3Mu15_v1",
         "HLT_HIL3Mu20_v1",
+        '''
         ),
     # Single Muon Filter List
     'SingleMuonFilter'  : cms.vstring(
+        '''
         "hltL1fL1sSingleMu3BptxANDL1Filtered0",
         "hltL1fL1sSingleMu5BptxANDL1Filtered0",
         "hltL1fL1sSingleMu7BptxANDL1Filtered0",
@@ -77,8 +83,8 @@ triggerList    = {
         "hltL3fL1sSingleMu7BptxANDL1f0L2f0L3Filtered12",
         "hltL3fL1sSingleMu7BptxANDL1f0L2f0L3Filtered15",
         "hltL3fL1sSingleMu7BptxANDL1f0L2f0L3Filtered20",
-        )
         '''
+        )
     }
 
 if isMC:
@@ -172,12 +178,5 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(options.maxE
 process.options   = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 
-process.onia2MuMuPatGlbGlbFilter = cms.EDFilter("CandViewCountFilter",
-        minNumber = cms.uint32(1),
-            src = cms.InputTag("onia2MuMuPatGlbGlb")
-            )
-
-
-
 #process.schedule  = cms.Schedule( process.oniaTreeAna , process.hltBitAna , process.hltObjectAna )
-process.schedule  = cms.Schedule( process.oniaTreeAna*process.onia2MuMuPatGlbGlbFilter )
+process.schedule  = cms.Schedule( process.oniaTreeAna )
