@@ -90,7 +90,7 @@ triggerList    = {
 if isMC:
     globalTag = '92X_upgrade2017_realistic_v11'
 else:
-    globalTag = '92X_dataRun2_PromptLike_v5'
+    globalTag = '92X_dataRun2_HLT_XeXe_v1'
 
 #----------------------------------------------------------------------------
 
