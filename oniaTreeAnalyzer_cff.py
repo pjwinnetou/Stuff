@@ -24,7 +24,7 @@ def oniaTreeAnalyzer(process, muonTriggerList=[[],[],[],[]], HLTProName='HLT', m
     process.hltOniaHI = HLTrigger.HLTfilters.hltHighLevel_cfi.hltHighLevel.clone()
 
     from HiSkim.HiOnia2MuMu.onia2MuMuPAT_cff import onia2MuMuPAT
-    onia2MuMuPAT(process, GlobalTag=process.GlobalTag.globaltag, MC=isMC, HLT=HLTProName, Filter=False, useL1Stage2=useL1Stage2)
+    onia2MuMuPAT(process, GlobalTag=process.GlobalTag.globaltag, MC=isMC, HLT=HLTProName, Filter=True, useL1Stage2=useL1Stage2)
 
 ### Temporal fix for the PAT Trigger prescale warnings.
     if (HLTProName == 'HLT') :
@@ -141,4 +141,15 @@ def oniaTreeAnalyzer(process, muonTriggerList=[[],[],[],[]], HLTProName='HLT', m
     process.hionia.CentralityBinSrc = cms.InputTag("")
     process.hionia.srcTracks        = cms.InputTag("generalTracks")       
 
-    process.oniaTreeAna = cms.EndPath(process.patMuonSequence * process.onia2MuMuPatGlbGlb * process.onia2MuMuPatGlbGlbFilter * process.hionia )
+    process.DiMuonFilter = cms.EDFilter("PATCandViewCountFilter", minNumber = cms.uint32(1), maxNumber = cms.uint32(9999999), src = cms.InputTag("onia2MuMuPatGlbGlb") )
+    
+    
+    process.Onia2MuMuPATpath = cms.Path(process.patMuonSequence * process.onia2MuMuPatGlbGlb * process.DiMuonFilter)
+
+    process.outOnia2MuMupath = cms.OutputModule("PoolOutputModule",
+        fileName = cms.untracked.string('onia2MuMuPATpath.root'),
+        SelectEvents = cms.untracked.PSet( SelectEvents = cms.vstring('Onia2MuMuPATpath') ) 
+    )
+
+
+    process.oniaTreeAna = cms.EndPath(process.outOnia2MuMupath * process.hionia )
